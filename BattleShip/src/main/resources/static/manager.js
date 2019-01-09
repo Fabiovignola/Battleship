@@ -1,4 +1,23 @@
-$(function() {
+// $(function() {
+    gamesCalls();
+    function gamesCalls() {
+        fetch("http://localhost:8080/api/games", {
+            method: "GET",
+            headers: {
+            }
+        }).then(function (response) {
+            if (response.ok) {
+                console.log(2);
+
+                return response.json();
+            }
+
+        }).then(function (json) {
+
+        }).catch(function (error) {
+            console.log("Request failed:" + error.message);
+        });
+    }
 
     // display text in the output area
     function showOutput(text) {

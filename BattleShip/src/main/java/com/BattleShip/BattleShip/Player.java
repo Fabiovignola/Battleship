@@ -1,27 +1,30 @@
 package com.BattleShip.BattleShip;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
+import javax.persistence.OneToMany;
+
+import static java.util.stream.Collectors.toList;
 
 @Entity
 public class Player {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
-//    private String firstName;
-//    private String lastName;
+
+    @OneToMany(mappedBy="player", fetch=FetchType.EAGER)
+    Set<GamePlayer> gamePlayers = new HashSet<>();
+
     private String userName;
 
     public Player() { }
 
     public Player(String email) {
-//        firstName = first;
-////        lastName = last;
         this.userName = email;
     }
 
@@ -29,20 +32,37 @@ public class Player {
         return userName;
     }
 
+    public void addGamePlayer (GamePlayer gp) {
+        gp.setPlayer(this);
+        this.gamePlayers.add(gp);
+    }
 
-//    public void setFirstName(String firstName) {
-//        this.firstName = firstName;
-//    }
-//
-//    public String getLastName() {
-//        return lastName;
-//    }
-//
-//    public void setLastName(String lastName) {
-//        this.lastName = lastName;
-//    }
-//
-//    public String toString() {
-//        return firstName + " " + lastName;
-//    }
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public Set<GamePlayer> getGamePlayers() {
+        return gamePlayers;
+    }
+
+    public void setGamePlayers(Set<GamePlayer> gamePlayers) {
+        this.gamePlayers = gamePlayers;
+    }
+
+    @JsonIgnore
+    public List<Game> getGames() {
+        return gamePlayers.stream().map(sub -> sub.getGame()).collect(toList());
+    }
 }
