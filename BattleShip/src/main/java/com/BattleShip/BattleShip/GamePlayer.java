@@ -3,10 +3,13 @@ package com.BattleShip.BattleShip;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class GamePlayer {
+    //fields
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -21,12 +24,18 @@ public class GamePlayer {
     @JoinColumn(name="game_id")
     private Game game;
 
+    @OneToMany(mappedBy="gamePlayer", fetch=FetchType.EAGER)
+    Set<Ship> ships = new HashSet<>();
+
+    //constructores
     public GamePlayer() { }
 
     public GamePlayer(Player player, Game game){
         this.player = player;
         this.game = game;
     }
+
+    //methods
 
     public void setPlayer(Player player){
         this.player = player;
@@ -60,5 +69,12 @@ public class GamePlayer {
         this.date = date;
     }
 
+    public void setShips(Set<Ship> ships) {
+        this.ships = ships;
+    }
+
+    public Set<Ship> getShips() {
+        return ships;
+    }
 }
 

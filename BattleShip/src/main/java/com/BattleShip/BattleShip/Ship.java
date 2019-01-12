@@ -68,6 +68,7 @@ public class Ship {
     public void setShipType(String shipType) {
         this.shipType = shipType;
     }
+
 }
 
 
