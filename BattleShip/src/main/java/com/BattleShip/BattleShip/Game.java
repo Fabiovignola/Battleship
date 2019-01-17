@@ -20,7 +20,6 @@ public class Game {
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
 
-
     @OneToMany(mappedBy="game", fetch=FetchType.EAGER)
     Set<GamePlayer> gamePlayer = new HashSet<>();
 
@@ -50,10 +49,9 @@ public class Game {
         return gamePlayer.stream().map(sub -> sub.getPlayer()).collect(toList());
     }
 
-    public Set<GamePlayer> getGamePlayer() {
+    public Set<GamePlayer> getGamePlayers() {
         return gamePlayer;
     }
-
 
     public Date getDate() {
         return date;

@@ -16,6 +16,7 @@ import static java.util.stream.Collectors.toList;
 
 public class SalvoController {
 
+        ///////INYECCION DE DEPENDENCIAS/////
         @Autowired
         private GameRepository gamerepo;
         @Autowired
@@ -32,7 +33,7 @@ public class SalvoController {
                 Map<String, Object> DTO= new LinkedHashMap<>();
                 DTO.put("id",game.getId());
                 DTO.put("date",game.getdate());
-                DTO.put("gamePlayers",game.getGamePlayer().stream()
+                DTO.put("gamePlayers",game.getGamePlayers().stream()
                         .map(gp -> makeGamePlayerDTO(gp)).collect(toList()));
                 return DTO;
         }
@@ -56,10 +57,14 @@ public class SalvoController {
         public Map<String,Object> gameView(@PathVariable Long nn){
                 GamePlayer gamep = gameprepo.findById(nn).orElse(null);
                 Set<Ship> ships = gamep.getShips();
-                Map<String, Object> DTO= new HashMap<>();
+                Set<GamePlayer> setgps = gamep.getGame().getGamePlayers();
+
+                Map<String, Object> DTO= new LinkedHashMap<>();
                 DTO.put("Game",makeGameDTO(gamep.getGame()));
                 DTO.put("Ships",ships.stream()
-                        .map(ss -> makeShipDTO(ss)).collect(toList()));
+                        .map(ship -> makeShipDTO(ship)).collect(toList()));
+                DTO.put("Salvos", setgps.stream()
+                        .map(GamePlayer -> makeSalvosDTO(GamePlayer.getSalvos())));
                 return DTO;
         }
 
@@ -67,6 +72,21 @@ public class SalvoController {
                 Map<String, Object> DTO= new HashMap<>();
                 DTO.put("type", ship.getShipType());
                 DTO.put("location", ship.getLocation());
+                return DTO;
+        }
+
+        private Map<String, Object> makeSalvosDTO(Set<Salvo> salvos){
+                Map<String, Object> DTO = new HashMap<>();
+                DTO.put("Salvos", salvos.stream()
+                .map(salvo -> makeSalvoDTO(salvo)).collect(toList()));
+                return DTO;
+        }
+
+        private Map<String, Object> makeSalvoDTO(Salvo salvo){
+                Map<String, Object> DTO= new HashMap<>();
+                DTO.put("idGP", salvo.getGamePlayer().getId());
+                DTO.put("turn", salvo.getTurn());
+                DTO.put("location", salvo.getLocation());
                 return DTO;
         }
 }

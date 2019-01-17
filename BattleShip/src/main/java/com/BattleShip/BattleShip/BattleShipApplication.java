@@ -16,7 +16,8 @@ public class BattleShipApplication {
 	}
 		@Bean
 		public CommandLineRunner initData(PlayerRepository repository, GameRepository grepository,
-										  GamePlayerRepository prepository, ShipRepository srepository) {
+										  GamePlayerRepository prepository, ShipRepository srepository,
+										  SalvoRepository sarepository) {
 			return (args) -> {
 				// save a couple of customers
 				Player p1 = new Player("j.bauer@ctu.gov");
@@ -182,6 +183,93 @@ public class BattleShipApplication {
 				List<String> location27 = Arrays.asList("G6", "H6");
 				Ship s27 = new Ship("Patrol Boat", gp16, location27);
 				srepository.save(s27);
+
+				/////////////////////////////SALVOS/////////////////////////
+				///TURN 1///
+				List<String> locationSalvo1 = Arrays.asList("B5", "C5", "F1");
+				Salvo sa1 = new Salvo(1, gp1, locationSalvo1);
+				sarepository.save(sa1);
+				///TURN 2///
+				List<String> locationSalvo2 = Arrays.asList("B4", "B5", "B6");
+				Salvo sa2 = new Salvo(1, gp2, locationSalvo2);
+				sarepository.save(sa2);
+				///TURN 3///
+				List<String> locationSalvo3 = Arrays.asList("F2", "D5");
+				Salvo sa3 = new Salvo(2, gp1, locationSalvo3);
+				sarepository.save(sa3);
+				///TURN 4///
+				List<String> locationSalvo4 = Arrays.asList("E1", "H3", "A2");
+				Salvo sa4 = new Salvo(2, gp2, locationSalvo4);
+				sarepository.save(sa4);
+				///TURN 5///
+				List<String> locationSalvo5 = Arrays.asList("A2", "A4", "G6");
+				Salvo sa5 = new Salvo(1, gp3, locationSalvo5);
+				sarepository.save(sa5);
+				///TURN 6///
+				List<String> locationSalvo6 = Arrays.asList("B5", "D5", "C7");
+				Salvo sa6 = new Salvo(1, gp4, locationSalvo6);
+				sarepository.save(sa6);
+				///TURN 7///
+				List<String> locationSalvo7 = Arrays.asList("A3", "H6");
+				Salvo sa7 = new Salvo(2, gp3, locationSalvo7);
+				sarepository.save(sa7);
+				///TURN 8///
+				List<String> locationSalvo8 = Arrays.asList("C5", "C6");
+				Salvo sa8 = new Salvo(2, gp4, locationSalvo8);
+				sarepository.save(sa8);
+				///TURN 9///
+				List<String> locationSalvo9 = Arrays.asList("G6", "H6", "A4");
+				Salvo sa9 = new Salvo(1, gp5, locationSalvo9);
+				sarepository.save(sa9);
+				///TURN 10///
+				List<String> locationSalvo10 = Arrays.asList("H1", "H2", "H3");
+				Salvo sa10 = new Salvo(1, gp6, locationSalvo10);
+				sarepository.save(sa10);
+				///TURN 11///
+				List<String> locationSalvo11 = Arrays.asList("A2", "A3", "D8");
+				Salvo sa11 = new Salvo(2, gp5, locationSalvo11);
+				sarepository.save(sa11);
+				///TURN 12///
+				List<String> locationSalvo12 = Arrays.asList("E1", "F2", "G3");
+				Salvo sa12 = new Salvo(2, gp6, locationSalvo12);
+				sarepository.save(sa12);
+				///TURN 13///
+				List<String> locationSalvo13 = Arrays.asList("A3", "A4", "F7");
+				Salvo sa13 = new Salvo(1, gp7, locationSalvo13);
+				sarepository.save(sa13);
+				///TURN 14///
+				List<String> locationSalvo14 = Arrays.asList("B5", "C6", "H1");
+				Salvo sa14 = new Salvo(1, gp8, locationSalvo14);
+				sarepository.save(sa14);
+				///TURN 15///
+				List<String> locationSalvo15 = Arrays.asList("A2", "G6", "H6");
+				Salvo sa15 = new Salvo(2, gp7, locationSalvo15);
+				sarepository.save(sa15);
+				///TURN 16///
+				List<String> locationSalvo16 = Arrays.asList("C5", "C7", "D5");
+				Salvo sa16 = new Salvo(2, gp8, locationSalvo16);
+				sarepository.save(sa16);
+				///TURN 17///
+				List<String> locationSalvo17 = Arrays.asList("A1", "A2", "A3");
+				Salvo sa17 = new Salvo(1, gp9, locationSalvo17);
+				sarepository.save(sa17);
+				///TURN 18///
+				List<String> locationSalvo18 = Arrays.asList("B5", "B6", "C7");
+				Salvo sa18 = new Salvo(1, gp10, locationSalvo18);
+				sarepository.save(sa18);
+				///TURN 19///
+				List<String> locationSalvo19 = Arrays.asList("G6", "G7", "G8");
+				Salvo sa19 = new Salvo(2, gp9, locationSalvo19);
+				sarepository.save(sa19);
+				///TURN 20///
+				List<String> locationSalvo20 = Arrays.asList("C6", "D6", "E6");
+				Salvo sa20 = new Salvo(2, gp10, locationSalvo20);
+				sarepository.save(sa20);
+				///TURN 21///
+				List<String> locationSalvo21 = Arrays.asList("H1", "H8");
+				Salvo sa21 = new Salvo(3, gp10, locationSalvo21);
+				sarepository.save(sa21);
+				///////////////////////////////////////////////////////////////////////////////
 
 			};
 		}

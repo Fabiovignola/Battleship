@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import static java.util.stream.Collectors.toList;
 
 @Entity
-public class Ship {
+public class Salvo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -22,16 +22,17 @@ public class Ship {
     private GamePlayer gamePlayer;
 
     @ElementCollection
-    @Column(name="shipLocation")
+    @Column(name="salvoLocation")
     private List<String> location = new ArrayList<>();
 
-    private String shipType;
+    private Integer turn;
 
-    public Ship() {
+    public Salvo() {
+
     }
 
-    public Ship(String type, GamePlayer gamePlayer, List location) {
-        this.shipType = type;
+    public Salvo(Integer turn, GamePlayer gamePlayer, List location) {
+        this.turn = turn;
         this.gamePlayer = gamePlayer;
         this.location = location;
     }
@@ -48,8 +49,8 @@ public class Ship {
         return location;
     }
 
-    public String getShipType() {
-        return shipType;
+    public Integer getTurn() {
+        return turn;
     }
 
     public void setId(long id) {
@@ -64,12 +65,9 @@ public class Ship {
         this.location = location;
     }
 
-    public void setShipType(String shipType) {
-        this.shipType = shipType;
+    public void setTurn(Integer salvoType) {
+        this.turn = turn;
     }
 
 
-
 }
-
-
