@@ -88,8 +88,17 @@ public class SalvoController {
                 return DTO;
         }
 
+        ///makes setscoresdto
+//        private Map<String, Object> makeSalvoDTO(Player player) {
+////                Map<String, Object> DTO= new HashMap<>();
+////                DTO.put("idGP", salvo.getGamePlayer().getId());
+////                DTO.put("turn", salvo.getTurn());
+////                DTO.put("location", salvo.getLocation());
+////                return DTO;
+//        }
 
-         Map<String, Object> makeScoreDTO (Set<Score> Scores){
+
+         private Map<String, Object> countScores (Set<Score> Scores){
                 Map<String, Object> DTO= new HashMap<>();
                 ////TOTAL SCORE////
                 Double totalscore = 0.0;
@@ -98,15 +107,26 @@ public class SalvoController {
                 }
                 DTO.put("total", totalscore);
                 System.out.println(DTO);
-                return DTO;
                 ////TOTAL WIN/////
                 Integer totalwin = 0;
                 Integer totaloose = 0;
+                Integer totaltied = 0;
                  for(Score score : Scores){
-                         if(Scores == 1.0)
-//                         totawin += score.getScore();
+                         if(score.getScore() == 1.0){
+                                 totalwin += 1;
+                         }
+                         if(score.getScore() == 0.5){
+                                 totaltied += 1;
+                         }
+                         if(score.getScore() == 0.0){
+                                 totaloose += 1;
+                         }
                  }
-                 DTO.put("total", totawin);
+                 DTO.put("win", totalwin );
+                 DTO.put("lose", totaloose);
+                 DTO.put("tied", totaltied);
+                 return DTO;
+
                  ///////////////////////
 
 
@@ -117,27 +137,4 @@ public class SalvoController {
 
 
         }
-
-//        Pub
-//                for (Product product : this.products){
-//                total += product.getPrice();
-//
-//                if (counter.containsKey(product.getName())) {
-//                        Integer value = counter.get(product.getName());
-//                        value++;
-//                        if (value ==4){
-//                                total -= product.getPrice();
-//                                value = 0;
-//                        }
-//                        counter.put(product.getName(), value);
-//                }else{
-//                        counter.put(product.getName(),1);
-//                }
-//
-//        }
-
-
-
-
-
 }
