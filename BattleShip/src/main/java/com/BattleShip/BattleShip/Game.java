@@ -23,6 +23,9 @@ public class Game {
     @OneToMany(mappedBy="game", fetch=FetchType.EAGER)
     Set<GamePlayer> gamePlayer = new HashSet<>();
 
+    @OneToMany(mappedBy="game", fetch=FetchType.EAGER)
+        Set<Score> scores = new HashSet<>();
+
     private Date date;
 
     public Game() {

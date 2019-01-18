@@ -1,14 +1,11 @@
 package com.BattleShip.BattleShip;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.HashSet;
 import javax.persistence.ManyToOne;
-import static java.util.stream.Collectors.toList;
+
 
 @Entity
 public class Salvo {

@@ -17,7 +17,7 @@ public class BattleShipApplication {
 		@Bean
 		public CommandLineRunner initData(PlayerRepository repository, GameRepository grepository,
 										  GamePlayerRepository prepository, ShipRepository srepository,
-										  SalvoRepository sarepository) {
+										  SalvoRepository sarepository, ScoreRepository screpository) {
 			return (args) -> {
 				// save a couple of customers
 				Player p1 = new Player("j.bauer@ctu.gov");
@@ -270,6 +270,33 @@ public class BattleShipApplication {
 				Salvo sa21 = new Salvo(3, gp10, locationSalvo21);
 				sarepository.save(sa21);
 				///////////////////////////////////////////////////////////////////////////////
+				//////////////SCORE////////////////
+				///SCORE1///
+				Score sco1 = new Score(1.0, g1, p1);
+				screpository.save(sco1);
+				///SCORE2///
+				Score sco2 = new Score(0.0, g1, p2);
+				screpository.save(sco2);
+				///SCORE3///
+				Score sco3 = new Score(0.0, g2, p1);
+				screpository.save(sco3);
+				///SCORE4///
+				Score sco4 = new Score(0.0, g2, p2);
+				screpository.save(sco4);
+				///SCORE5///
+				Score sco5 = new Score(1.0, g3, p1);
+				screpository.save(sco5);
+				///SCORE6///
+				Score sco6 = new Score(0.0, g3, p2);
+				screpository.save(sco6);
+				///SCORE7///
+				Score sco7 = new Score(0.0, g4, p1);
+				screpository.save(sco7);
+				///SCORE8///
+				Score sco8 = new Score(0.0, g4, p2);
+				screpository.save(sco8);
+
+
 
 			};
 		}

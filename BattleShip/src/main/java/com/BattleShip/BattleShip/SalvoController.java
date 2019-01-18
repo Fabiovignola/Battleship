@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.lang.reflect.Type;
 import java.util.*;
-
 import static java.util.stream.Collectors.toList;
 
 @RestController
@@ -53,6 +50,7 @@ public class SalvoController {
                 return DTO;
         }
 
+
         @RequestMapping("/game_view/{nn}")
         public Map<String,Object> gameView(@PathVariable Long nn){
                 GamePlayer gamep = gameprepo.findById(nn).orElse(null);
@@ -89,4 +87,57 @@ public class SalvoController {
                 DTO.put("location", salvo.getLocation());
                 return DTO;
         }
+
+
+         Map<String, Object> makeScoreDTO (Set<Score> Scores){
+                Map<String, Object> DTO= new HashMap<>();
+                ////TOTAL SCORE////
+                Double totalscore = 0.0;
+                for(Score score : Scores){
+                        totalscore += score.getScore();
+                }
+                DTO.put("total", totalscore);
+                System.out.println(DTO);
+                return DTO;
+                ////TOTAL WIN/////
+                Integer totalwin = 0;
+                Integer totaloose = 0;
+                 for(Score score : Scores){
+                         if(Scores == 1.0)
+//                         totawin += score.getScore();
+                 }
+                 DTO.put("total", totawin);
+                 ///////////////////////
+
+
+
+
+
+
+
+
+        }
+
+//        Pub
+//                for (Product product : this.products){
+//                total += product.getPrice();
+//
+//                if (counter.containsKey(product.getName())) {
+//                        Integer value = counter.get(product.getName());
+//                        value++;
+//                        if (value ==4){
+//                                total -= product.getPrice();
+//                                value = 0;
+//                        }
+//                        counter.put(product.getName(), value);
+//                }else{
+//                        counter.put(product.getName(),1);
+//                }
+//
+//        }
+
+
+
+
+
 }
