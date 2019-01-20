@@ -72,6 +72,7 @@ public class Player {
         Scores = scores;
     }
 
+
     @JsonIgnore
     public List<Game> getGames() {
         return gamePlayers.stream().map(sub -> sub.getGame()).collect(toList());

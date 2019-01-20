@@ -88,15 +88,13 @@ public class SalvoController {
                 return DTO;
         }
 
-        ///makes setscoresdto
-//        private Map<String, Object> makeSalvoDTO(Player player) {
-////                Map<String, Object> DTO= new HashMap<>();
-////                DTO.put("idGP", salvo.getGamePlayer().getId());
-////                DTO.put("turn", salvo.getTurn());
-////                DTO.put("location", salvo.getLocation());
-////                return DTO;
-//        }
-
+        private Map<String, Object> makeSetScoresDTO(Player player) {
+                Map<String, Object> DTO= new HashMap<>();
+                DTO.put("email", player.getUserName());
+                DTO.put("player",player.getScores().stream()
+                        .map(sc -> countScores(cs)).collect(toList()));
+                return DTO;
+        }
 
          private Map<String, Object> countScores (Set<Score> Scores){
                 Map<String, Object> DTO= new HashMap<>();
