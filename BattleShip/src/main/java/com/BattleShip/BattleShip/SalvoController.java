@@ -18,13 +18,20 @@ public class SalvoController {
         private GameRepository gamerepo;
         @Autowired
         private GamePlayerRepository gameprepo;
+        @Autowired
+        private PlayerRepository plaprepo;
 
 
         @RequestMapping("/games")
-        public List<Object> getAllGame(){
-            return gamerepo.findAll().stream()
+        public  Map<String, Object> getAllGame(){
+                Map<String, Object> DTO= new HashMap<>();
+                DTO.put("allGame", gamerepo.findAll().stream()
                         .map(g -> makeGameDTO(g))
-                        .collect(toList());
+                        .collect(toList()));
+                DTO.put("allScores", plaprepo.findAll().stream()
+                        .map(l -> makeSetScoresDTO(l))
+                        .collect(toList()));
+                return DTO;
         }
         private Map<String, Object>  makeGameDTO(Game game){
                 Map<String, Object> DTO= new LinkedHashMap<>();
@@ -91,8 +98,7 @@ public class SalvoController {
         private Map<String, Object> makeSetScoresDTO(Player player) {
                 Map<String, Object> DTO= new HashMap<>();
                 DTO.put("email", player.getUserName());
-                DTO.put("player",player.getScores().stream()
-                        .map(sc -> countScores(cs)).collect(toList()));
+                DTO.put("player", countScores(player.getScores()));
                 return DTO;
         }
 

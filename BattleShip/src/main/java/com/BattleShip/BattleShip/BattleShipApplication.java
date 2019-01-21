@@ -278,22 +278,22 @@ public class BattleShipApplication {
 				Score sco2 = new Score(0.0, g1, p2);
 				screpository.save(sco2);
 				///SCORE3///
-				Score sco3 = new Score(0.0, g2, p1);
+				Score sco3 = new Score(0.5, g2, p1);
 				screpository.save(sco3);
 				///SCORE4///
-				Score sco4 = new Score(0.0, g2, p2);
+				Score sco4 = new Score(0.5, g2, p2);
 				screpository.save(sco4);
 				///SCORE5///
-				Score sco5 = new Score(1.0, g3, p1);
+				Score sco5 = new Score(1.0, g3, p2);
 				screpository.save(sco5);
 				///SCORE6///
-				Score sco6 = new Score(0.0, g3, p2);
+				Score sco6 = new Score(0.0, g3, p4);
 				screpository.save(sco6);
 				///SCORE7///
-				Score sco7 = new Score(0.0, g4, p1);
+				Score sco7 = new Score(0.5, g4, p1);
 				screpository.save(sco7);
 				///SCORE8///
-				Score sco8 = new Score(0.0, g4, p2);
+				Score sco8 = new Score(0.5, g4, p2);
 				screpository.save(sco8);
 
 

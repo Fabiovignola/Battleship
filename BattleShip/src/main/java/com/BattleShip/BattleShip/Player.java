@@ -64,6 +64,7 @@ public class Player {
         this.gamePlayers = gamePlayers;
     }
 
+    ///SETTER CAMBIA EL VALOR DE UNA VARIABLE/////
     public Set<Score> getScores() {
         return Scores;
     }
