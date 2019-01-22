@@ -296,8 +296,6 @@ public class BattleShipApplication {
 				Score sco8 = new Score(0.5, g4, p2);
 				screpository.save(sco8);
 
-
-
 			};
 		}
 

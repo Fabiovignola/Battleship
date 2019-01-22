@@ -46,19 +46,16 @@ function printScore() {
     var contenido = document.getElementById("tableScore");
     var tblBody = document.createElement("tbody");
     var allsco = data.allScores;
-    var td = document.createElement("td");
-    var tdos = document.createElement("td");
-    var tdtres = document.createElement("td");
-    var tdcuatro = document.createElement("td");
-    var tdcinco = document.createElement("td");
 
     for (var i = 0; i < allsco.length; i++){
+        var td = document.createElement("tr");
+
         var players = allsco[i].email;
-        var truno = document.createElement("tr");
-        var trdos = document.createElement("tr");
-        var trtres = document.createElement("tr");
-        var trcuatro = document.createElement("tr");
-        var trcinco = document.createElement("tr");
+        var truno = document.createElement("td");
+        var trdos = document.createElement("td");
+        var trtres = document.createElement("td");
+        var trcuatro = document.createElement("td");
+        var trcinco = document.createElement("td");
 
         var play = allsco[i].player;
         var totalscore = play.total;
@@ -73,17 +70,12 @@ function printScore() {
         trcinco.innerHTML = totaltied;
 
         td.appendChild(truno);
-        tdos.appendChild(trdos);
-        tdtres.appendChild(trtres);
-        tdcuatro.appendChild(trcuatro);
-        tdcinco.appendChild(trcinco);
+        td.appendChild(trdos);
+        td.appendChild(trtres);
+        td.appendChild(trcuatro);
+        td.appendChild(trcinco);
 
         tblBody.appendChild(td);
-        tblBody.appendChild(tdos);
-        tblBody.appendChild(tdtres);
-        tblBody.appendChild(tdcuatro);
-        tblBody.appendChild(tdcinco);
-
 
     }
     contenido.appendChild(tblBody);

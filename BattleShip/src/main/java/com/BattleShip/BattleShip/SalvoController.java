@@ -33,6 +33,7 @@ public class SalvoController {
                         .collect(toList()));
                 return DTO;
         }
+
         private Map<String, Object>  makeGameDTO(Game game){
                 Map<String, Object> DTO= new LinkedHashMap<>();
                 DTO.put("id",game.getId());
@@ -57,10 +58,9 @@ public class SalvoController {
                 return DTO;
         }
 
-
         @RequestMapping("/game_view/{nn}")
         public Map<String,Object> gameView(@PathVariable Long nn){
-                GamePlayer gamep = gameprepo.findById(nn).orElse(null);
+                GamePlayer gamep = gameprepo.findOne(nn);
                 Set<Ship> ships = gamep.getShips();
                 Set<GamePlayer> setgps = gamep.getGame().getGamePlayers();
 
@@ -126,9 +126,10 @@ public class SalvoController {
                                  totaloose += 1;
                          }
                  }
-                 DTO.put("win", totalwin );
+                 DTO.put("win", totalwin);
                  DTO.put("lose", totaloose);
                  DTO.put("tied", totaltied);
+                 System.out.println(DTO);
                  return DTO;
 
                  ///////////////////////
