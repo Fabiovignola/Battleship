@@ -2,13 +2,11 @@ package com.BattleShip.BattleShip;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 import javax.persistence.OneToMany;
-
 import static java.util.stream.Collectors.toList;
 
 @Entity
@@ -27,14 +25,12 @@ public class Player {
     private String userName;
     private String password;
 
-
     public Player() { }
 
     public Player(String email, String password) {
         this.userName = email;
         this.password = password;
     }
-
 
     public String getPassword() {
         return password;
@@ -81,7 +77,6 @@ public class Player {
     public void setScores(Set<Score> scores) {
         Scores = scores;
     }
-
 
     @JsonIgnore
     public List<Game> getGames() {

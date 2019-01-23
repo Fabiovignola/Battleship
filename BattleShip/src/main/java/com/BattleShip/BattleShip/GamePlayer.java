@@ -88,6 +88,5 @@ public class GamePlayer {
         this.salvos = salvos;
     }
 
-
 }
 

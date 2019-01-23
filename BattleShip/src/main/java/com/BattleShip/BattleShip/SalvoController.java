@@ -1,14 +1,15 @@
 package com.BattleShip.BattleShip;
 
-
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
+
 import static java.util.stream.Collectors.toList;
+
 
 @RestController
 @RequestMapping("/api")
@@ -25,7 +26,7 @@ public class SalvoController {
         private PlayerRepository plaprepo;
 
         @RequestMapping("/games")
-        public  Map<String, Object> getAllGame(){
+        public  Map<String, Object> getAllGame(Authentication authentication){
                 Map<String, Object> DTO= new HashMap<>();
                 DTO.put("allGame", gamerepo.findAll().stream()
                         .map(g -> makeGameDTO(g))
@@ -33,6 +34,12 @@ public class SalvoController {
                 DTO.put("allScores", plaprepo.findAll().stream()
                         .map(l -> makeSetScoresDTO(l))
                         .collect(toList()));
+                if(authentication != null){
+                        DTO.put("player", makePlayerDTO(currentUser(authentication)));
+                }else {
+                        DTO.put("player", null);
+                }
+
                 return DTO;
         }
 
@@ -71,7 +78,7 @@ public class SalvoController {
                 DTO.put("Ships",ships.stream()
                         .map(ship -> makeShipDTO(ship)).collect(toList()));
                 DTO.put("Salvos", setgps.stream()
-                        .map(GamePlayer -> makeSalvosDTO(GamePlayer.getSalvos())));
+                        .map(GamePlayer -> makeSalvosDTO(GamePlayer.getSalvos())).collect(toList()));
                 return DTO;
         }
 
@@ -145,13 +152,17 @@ public class SalvoController {
 
         }
 
-
-        @RequestMapping("/player")
-        public List<Player> getAll(Authentication authentication) {
-                return plaprepo.findByuserName(authentication.getUserName());
+        public Player currentUser(Authentication authentication) {
+                return plaprepo.findByuserName(authentication.getName());
         }
+
         private boolean isGuest(Authentication authentication) {
                 return authentication == null || authentication instanceof AnonymousAuthenticationToken;
         }
 
-}
+        @RequestMapping("/api/players/{nn}")
+        public String findUser(@PathVariable Long nn) {
+                User nn = nnService.findUser(nn);
+        }
+        }
+

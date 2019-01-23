@@ -17,8 +17,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
-
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -334,6 +332,7 @@ class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 			} else {
 				throw new UsernameNotFoundException("Unknown user: " + inputName);
 			}
+
 		});
 	}
 }
@@ -345,15 +344,16 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 //				.antMatchers("/admin/**").hasAuthority("ADMIN")
-				.antMatchers("/web/games.html").permitAll()
-				.antMatchers("/web/games.js").permitAll()
-				.antMatchers("/web/main.css").permitAll()
-				.antMatchers("/api/games").permitAll()
-				.antMatchers("/**").hasAuthority("USER")
+//				.antMatchers("/web/games.html").permitAll()
+//				.antMatchers("/web/games.js").permitAll()
+//				.antMatchers("/web/main.css").permitAll()
+//				.antMatchers("/api/games").permitAll()
+//				.antMatchers("/**").hasAuthority("USER")
+				.antMatchers("/**").permitAll()
 				.and()
 				.formLogin()
-				.usernameParameter("name")
-				.passwordParameter("pwd")
+				.usernameParameter("userName")
+				.passwordParameter("password")
 				.loginPage("/api/login");
 
 		http.logout().logoutUrl("/api/logout");
@@ -378,9 +378,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		if (session != null) {
 			session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 		}
-
 	}
-
 
 	}
 
