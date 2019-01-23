@@ -2,6 +2,7 @@ package com.BattleShip.BattleShip;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -34,16 +35,13 @@ public class Player {
         this.password = password;
     }
 
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getuserName() {
-        return userName;
     }
 
     public void addGamePlayer (GamePlayer gp) {
@@ -60,7 +58,7 @@ public class Player {
     }
 
     public String getUserName() {
-        return userName;
+        return this.userName;
     }
 
     public void setUserName(String userName) {

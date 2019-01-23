@@ -1,6 +1,9 @@
 package com.BattleShip.BattleShip;
 
+
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +23,6 @@ public class SalvoController {
         private GamePlayerRepository gameprepo;
         @Autowired
         private PlayerRepository plaprepo;
-
 
         @RequestMapping("/games")
         public  Map<String, Object> getAllGame(){
@@ -102,7 +104,7 @@ public class SalvoController {
                 return DTO;
         }
 
-         private Map<String, Object> countScores (Set<Score> Scores){
+        private Map<String, Object> countScores (Set<Score> Scores){
                 Map<String, Object> DTO= new HashMap<>();
                 ////TOTAL SCORE////
                 Double totalscore = 0.0;
@@ -142,4 +144,14 @@ public class SalvoController {
 
 
         }
+
+
+        @RequestMapping("/player")
+        public List<Player> getAll(Authentication authentication) {
+                return plaprepo.findByuserName(authentication.getUserName());
+        }
+        private boolean isGuest(Authentication authentication) {
+                return authentication == null || authentication instanceof AnonymousAuthenticationToken;
+        }
+
 }
