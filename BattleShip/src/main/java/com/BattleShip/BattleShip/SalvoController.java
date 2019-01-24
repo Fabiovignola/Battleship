@@ -1,11 +1,12 @@
 package com.BattleShip.BattleShip;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
 import static java.util.stream.Collectors.toList;
@@ -160,9 +161,23 @@ public class SalvoController {
                 return authentication == null || authentication instanceof AnonymousAuthenticationToken;
         }
 
-        @RequestMapping("/api/players/{nn}")
-        public String findUser(@PathVariable Long nn) {
-                User nn = nnService.findUser(nn);
+        @RequestMapping(path = "/players", method = RequestMethod.POST)
+        public ResponseEntity<Map<String, Object>> createUser(@RequestParam String userName, @RequestParam String password) {
+                if (userName.isEmpty() || password.isEmpty()) {
+                        return new ResponseEntity<>(makeNewUserMap("error", "No name"), HttpStatus.FORBIDDEN);
+                }
+                Player player = plaprepo.findByuserName(userName);
+                if (player != null) {
+                        return new ResponseEntity<>(makeNewUserMap("error", "Username already exists"), HttpStatus.CONFLICT);
+                }
+                Player newPlayer = plaprepo.save(new Player(userName, password));
+                return new ResponseEntity<>(makeNewUserMap("name", newPlayer.getId()),HttpStatus.CREATED);
+        }
+
+        private Map<String, Object> makeNewUserMap(String key, Object value) {
+                Map<String, Object> map = new HashMap<>();
+                map.put(key,value);
+                return map;
         }
         }
 

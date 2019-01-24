@@ -1,6 +1,7 @@
 var data;
 var correo = [];
-
+var usernamebutton= "";
+var passwordbutton= "";
 
 gamesCalls();
 function gamesCalls() {
@@ -25,7 +26,6 @@ function gamesCalls() {
         console.log("Request failed:" + error.message);
     });
 }
-
 function listGame() {
 
     document.getElementById("Portal").innerHTML = "Games";
@@ -41,7 +41,6 @@ function listGame() {
         tab.appendChild(list);
     }
 }
-
 function printScore() {
     var contenido = document.getElementById("tableScore");
     var tblBody = document.createElement("tbody");
@@ -80,5 +79,56 @@ function printScore() {
     }
     contenido.appendChild(tblBody);
 }
+function inputValue(){
+    usernamebutton = document.getElementById("exampleInputEmail1").value;
+    passwordbutton = document.getElementById("exampleInputPassword1").value;
+    signIn();
+}
+function signIn(){
+    fetch("/api/players", {
 
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        method: 'POST',
+        body: 'userName='+ usernamebutton + '&password='+ passwordbutton,
+    })
+        .then(function (data) {
+            console.log('Request success: ', data);
+        }).then(function () {
+    })
+        .catch(function (error) {
+            console.log('Request failure: ', error);
+        });
+
+}
+function logIn(){
+    fetch("/api/login", {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'userName='+ usernamebutton + '&password='+ passwordbutton,
+    })
+        .then(r => {
+        console.log(r)
+
+}
+)
+}
+function logOut(){
+    fetch("/api/logout", {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+        .then(r => {
+        console.log(r)})
+}
 
