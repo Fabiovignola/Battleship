@@ -13,6 +13,8 @@
 <h2 id="Portal"></h2>
 
 <div id="gamesHtml">
+
+    <button type="button" class="btn btn-success" onclick="logOut(event)">Log Out</button>
 <ol id="orderlist"></ol>
 <table id="tableScore" class="table table-dark">
     <thead>
@@ -25,17 +27,18 @@
     </tr>
     </thead>
 </table>
+</div>
 
 
 <div id="request">
     <form>
         <div class="form-group">
-            <label  for="exampleInputEmail1">Email address</label>
+            <label  for="exampleInputEmail1"><p>Email address</p></label>
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
+            <label for="exampleInputPassword1"><p>Password</p></label>
             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
         <div class="form-check">
@@ -43,17 +46,12 @@
             <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
         <div>
-        <button type="button" class="btn btn-primary" onclick="inputValue()">Sign In</button>
-        <button type="button" class="btn btn-secondary" onclick="logIn()">Log In</button>
-        <button type="button" class="btn btn-success" onclick="logOut()">Log Out</button>
+        <button type="button" class="btn btn-primary" onclick="signIn(event)">Sign In</button>
+        <button type="button" class="btn btn-secondary" onclick="logIn(event)">Log In</button>
+
         </div>
     </form>
 </div>
-</div>
-
-
-
-
 
 
 <script src="games.js"></script>

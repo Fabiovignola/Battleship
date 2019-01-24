@@ -4,3 +4,24 @@ body{
 button{
     margin: 30px auto;
 }
+input{
+    margin-right: 20%;
+    margin-left: 1%;
+}
+#gamesHtml{
+    display: none;
+}
+h2{
+    color: white;
+    text-align: center;
+    size: 100px;
+}
+p {
+    color: white;
+}
+table{
+    text-decoration-color: white;
+}
+ol {
+    text-decoration-color: white;
+}

@@ -2,6 +2,8 @@ var data;
 var correo = [];
 var usernamebutton= "";
 var passwordbutton= "";
+var showTable= "";
+var darksing= "";
 
 gamesCalls();
 function gamesCalls() {
@@ -21,6 +23,7 @@ function gamesCalls() {
         console.log(data);
         listGame();
         printScore();
+        loggedInPlayer();
 
     }).catch(function (error) {
         console.log("Request failed:" + error.message);
@@ -28,7 +31,7 @@ function gamesCalls() {
 }
 function listGame() {
 
-    document.getElementById("Portal").innerHTML = "Games";
+    document.getElementById("Portal").innerHTML = "BattleShip";
     var tab = document.getElementById("orderlist");
     var allGa = data.allGame;
     for (var i = 0; i < allGa.length; i++){
@@ -82,9 +85,11 @@ function printScore() {
 function inputValue(){
     usernamebutton = document.getElementById("exampleInputEmail1").value;
     passwordbutton = document.getElementById("exampleInputPassword1").value;
-    signIn();
+
 }
-function signIn(){
+function signIn(event){
+    event.preventDefault()
+    inputValue()
     fetch("/api/players", {
 
         credentials: 'include',
@@ -95,15 +100,21 @@ function signIn(){
         body: 'userName='+ usernamebutton + '&password='+ passwordbutton,
     })
         .then(function (data) {
-            console.log('Request success: ', data);
-        }).then(function () {
+            return data.json();
+        }).then(function (json) {
+            console.log(json)
+            logIn(event)
+
     })
         .catch(function (error) {
             console.log('Request failure: ', error);
         });
 
 }
-function logIn(){
+function logIn(event){
+    event.preventDefault()
+    inputValue()
+
     fetch("/api/login", {
         credentials: 'include',
         method: 'POST',
@@ -113,13 +124,20 @@ function logIn(){
         },
         body: 'userName='+ usernamebutton + '&password='+ passwordbutton,
     })
-        .then(r => {
-        console.log(r)
+        .then(function () {
+
+        }).then(function () {
+            location.reload()
+
+    })
+        .catch(function (error) {
+            console.log('Request failure: ', error);
+        });
 
 }
-)
-}
-function logOut(){
+function logOut(event){
+    event.preventDefault()
+
     fetch("/api/logout", {
         credentials: 'include',
         method: 'POST',
@@ -128,7 +146,23 @@ function logOut(){
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     })
-        .then(r => {
-        console.log(r)})
-}
+        .then(function () {
 
+        }).then(function () {
+        location.reload()
+    })
+        .catch(function (error) {
+            console.log('Request failure: ', error);
+        });
+}
+function loggedInPlayer(){
+    if(data.player == null){
+        darksing = document.getElementById("request");
+        darksing.style.display = 'block';
+    }else if(data.player != null){
+        darksing = document.getElementById("request");
+        darksing.style.display = 'none';
+        showTable = document.getElementById("gamesHtml");
+        showTable.style.display = 'block';
+    }
+}
