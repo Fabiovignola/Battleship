@@ -73,7 +73,7 @@ public class SalvoController {
                 GamePlayer gamep = gameprepo.findOne(nn);
                 Set<Ship> ships = gamep.getShips();
                 Set<GamePlayer> setgps = gamep.getGame().getGamePlayers();
-
+                
                 Map<String, Object> DTO= new LinkedHashMap<>();
                 DTO.put("Game",makeGameDTO(gamep.getGame()));
                 DTO.put("Ships",ships.stream()

@@ -4,6 +4,7 @@ var usernamebutton= "";
 var passwordbutton= "";
 var showTable= "";
 var darksing= "";
+var idGamePlayer= "";
 
 gamesCalls();
 function gamesCalls() {
@@ -36,13 +37,24 @@ function listGame() {
     var allGa = data.allGame;
     for (var i = 0; i < allGa.length; i++){
         var list = document.createElement("li");
+        var link = document.createElement("a");
+        console.log(allGa);
         var players = allGa[i].gamePlayers;
+        // console.log(players);
         for (var j = 0; j < players.length; j++){
             correo.push(players[j].player.email);
+            var gp = players[j].id;
+            if(data.player.id == players[j].player.id){
+                link.setAttribute("href", "http://localhost:8080/web/game.html?gp=" + gp);
+                link.innerHTML = "→" + "ENTRY" + "←";
+            }
         }
         list.innerHTML = allGa[i].date + " : " + correo.splice(0,2);
+
+        list.appendChild(link);
         tab.appendChild(list);
     }
+    console.log(gp);
 }
 function printScore() {
     var contenido = document.getElementById("tableScore");
