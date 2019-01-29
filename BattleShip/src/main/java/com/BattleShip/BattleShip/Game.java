@@ -31,6 +31,7 @@ public class Game {
     public Game() {
         this.date = new Date();
     }
+
     public Date getdate() {
         return date;
     }

@@ -1,5 +1,6 @@
 package com.BattleShip.BattleShip;
 
+import org.hibernate.loader.plan.spi.Return;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +45,25 @@ public class SalvoController {
                 return DTO;
         }
 
+        @RequestMapping(path = "/games", method = RequestMethod.POST)
+        public ResponseEntity<Map<String, Object>> createGame(Authentication authentication){
+                if(authentication == null){
+                        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                }else {
+                        Game newGame = new Game();
+                        gamerepo.save(newGame);
+                        GamePlayer newGamePlayer = new GamePlayer(currentUser(authentication), newGame);
+                        gameprepo.save(newGamePlayer);
+                        return new ResponseEntity<>(makeNewGame("id", newGame.getId()),HttpStatus.CREATED);
+                }
+        }
+
+        private Map<String, Object> makeNewGame(String key, Object value) {
+                Map<String, Object> map = new HashMap<>();
+                map.put(key,value);
+                return map;
+        }
+
         private Map<String, Object>  makeGameDTO(Game game){
                 Map<String, Object> DTO= new LinkedHashMap<>();
                 DTO.put("id",game.getId());
@@ -69,18 +89,26 @@ public class SalvoController {
         }
 
         @RequestMapping("/game_view/{nn}")
-        public Map<String,Object> gameView(@PathVariable Long nn){
+        public ResponseEntity<Map<String,Object>> gameView(@PathVariable Long nn, Authentication authentication){
                 GamePlayer gamep = gameprepo.findOne(nn);
                 Set<Ship> ships = gamep.getShips();
                 Set<GamePlayer> setgps = gamep.getGame().getGamePlayers();
-                
+
                 Map<String, Object> DTO= new LinkedHashMap<>();
                 DTO.put("Game",makeGameDTO(gamep.getGame()));
                 DTO.put("Ships",ships.stream()
                         .map(ship -> makeShipDTO(ship)).collect(toList()));
                 DTO.put("Salvos", setgps.stream()
                         .map(GamePlayer -> makeSalvosDTO(GamePlayer.getSalvos())).collect(toList()));
-                return DTO;
+
+                if(authentication != null ){
+                       if(currentUser(authentication).getId() == gamep.getPlayer().getId()){
+                               return new ResponseEntity<>(DTO,HttpStatus.CREATED);
+                       }
+                }else {
+                        return new ResponseEntity<>(HttpStatus.CONFLICT);
+                }
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
         private Map<String, Object> makeShipDTO(Ship ship){

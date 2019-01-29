@@ -14,7 +14,7 @@ function gamesCalls() {
         }
     }).then(function (response) {
         if (response.ok) {
-            console.log(2);
+            // console.log(2);
 
             return response.json();
         }
@@ -31,7 +31,6 @@ function gamesCalls() {
     });
 }
 function listGame() {
-
     document.getElementById("Portal").innerHTML = "BattleShip";
     var tab = document.getElementById("orderlist");
     var allGa = data.allGame;
@@ -54,7 +53,7 @@ function listGame() {
         list.appendChild(link);
         tab.appendChild(list);
     }
-    console.log(gp);
+    // console.log(gp);
 }
 function printScore() {
     var contenido = document.getElementById("tableScore");
@@ -177,4 +176,26 @@ function loggedInPlayer(){
         showTable = document.getElementById("gamesHtml");
         showTable.style.display = 'block';
     }
+}
+function create(event) {
+    fetch("/api/games", {
+
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        method: 'POST',
+
+    })
+        .then(function (data) {
+            return data.json();
+        }).then(function (json) {
+        console.log(json)
+        location.reload()
+
+
+    })
+        .catch(function (error) {
+            console.log('Request failure: ', error);
+        });
 }

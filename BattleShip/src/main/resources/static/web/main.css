@@ -12,14 +12,21 @@ td {
     align-content: center;
 }
 .ships{
-    background-color: blue;
+    background-image: url("ship.jpg");
 }
 .salvos{
-    background-color: black;
+    background-image: url("splash.jpg");
 }
 .hit{
-    background-color: red;
+   background-image: url("fire.jpg");
 }
+html{
+    background-color: black;
+}
+body{
+    background-image: url("ocean.png");
+}
+
 /*.gamesHtml{*/
     /*background-image: url("a.jpg");*/
     /*margin-left: 50px;*/
