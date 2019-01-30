@@ -332,11 +332,9 @@ class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 			} else {
 				throw new UsernameNotFoundException("Unknown user: " + inputName);
 			}
-
 		});
 	}
 }
-
 @Configuration
 @EnableWebSecurity
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {

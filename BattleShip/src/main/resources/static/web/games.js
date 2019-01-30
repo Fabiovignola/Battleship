@@ -37,9 +37,9 @@ function listGame() {
     for (var i = 0; i < allGa.length; i++){
         var list = document.createElement("li");
         var link = document.createElement("a");
+        var join = document.createElement("a");
         console.log(allGa);
         var players = allGa[i].gamePlayers;
-        // console.log(players);
         for (var j = 0; j < players.length; j++){
             correo.push(players[j].player.email);
             var gp = players[j].id;
@@ -48,12 +48,17 @@ function listGame() {
                 link.innerHTML = "→" + "ENTRY" + "←";
             }
         }
+        if(correo.length == 1){
+            join.setAttribute("data-game",allGa[i].id);
+            join.onclick = createGameplayer;
+            // join.setAttribute("href", "http://localhost:8080/web/game.html?gp=" +);
+            join.innerHTML = "→" + "JOIN" + "←";
+        }
         list.innerHTML = allGa[i].date + " : " + correo.splice(0,2);
-
         list.appendChild(link);
+        list.appendChild(join);
         tab.appendChild(list);
     }
-    // console.log(gp);
 }
 function printScore() {
     var contenido = document.getElementById("tableScore");
@@ -96,7 +101,6 @@ function printScore() {
 function inputValue(){
     usernamebutton = document.getElementById("exampleInputEmail1").value;
     passwordbutton = document.getElementById("exampleInputPassword1").value;
-
 }
 function signIn(event){
     event.preventDefault()
@@ -177,25 +181,49 @@ function loggedInPlayer(){
         showTable.style.display = 'block';
     }
 }
-function create(event) {
-    fetch("/api/games", {
+function create() {
+    // event.preventDefault()
 
+    fetch("/api/games", {
         credentials: 'include',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         method: 'POST',
-
     })
         .then(function (data) {
             return data.json();
         }).then(function (json) {
         console.log(json)
         location.reload()
+    })
+        .catch(function (error) {
+            console.log('Request failure: ', error);
+        });
+}
 
+
+function createGameplayer() {
+    console.log(event.target)
+    gameid = event.target.getAttribute("data-game");
+    // event.preventDefault()
+
+    fetch("/api/game/"+gameid+"/players", {
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        method: 'POST',
+    })
+        .then(function (data) {
+            return data.json();
+        }).then(function (json) {
+        console.log(json)
+            window.location.href("http://localhost:8080/web/game.html?gp=" + gameid)
 
     })
         .catch(function (error) {
             console.log('Request failure: ', error);
         });
 }
+

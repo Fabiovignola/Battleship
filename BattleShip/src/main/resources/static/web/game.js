@@ -6,7 +6,6 @@ var gameplayerID;
 var allShips = [];
 var allSalvos = [];
 
-
 shipCalls();
 function shipCalls() {
     fetch(makeUrl(), {

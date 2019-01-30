@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 
 @RestController
@@ -62,6 +63,25 @@ public class SalvoController {
                 Map<String, Object> map = new HashMap<>();
                 map.put(key,value);
                 return map;
+        }
+
+        @RequestMapping(path = "/game/{nn}/players", method = RequestMethod.POST)
+        public ResponseEntity<Map<String, Object>> joinGame(@PathVariable Long nn, Authentication authentication) {
+                if (authentication == null) {
+                        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                }
+                Game game = gamerepo.findOne(nn);
+                if (authentication != null) {
+                        if (game == null) {
+                                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+                        }
+                        if (game.getGamePlayers().size() == 2) {
+                                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+                        }
+                }
+                GamePlayer newGamePlayerDos = new GamePlayer(currentUser(authentication), game);
+                gameprepo.save(newGamePlayerDos);
+                return new ResponseEntity<>(makeNewUserMap("id", newGamePlayerDos.getId()),HttpStatus.CREATED);
         }
 
         private Map<String, Object>  makeGameDTO(Game game){
