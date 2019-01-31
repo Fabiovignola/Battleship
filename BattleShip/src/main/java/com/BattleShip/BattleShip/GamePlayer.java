@@ -39,6 +39,15 @@ public class GamePlayer {
     }
 
     //methods
+    public void addShip(Ship ship){
+        ship.setGamePlayer(this);
+        this.ships.add(ship);
+    }
+
+    public void addSalvo(Salvo salvo){
+        salvo.setGamePlayer(this);
+        this.salvos.add(salvo);
+    }
 
     public void setPlayer(Player player){
         this.player = player;

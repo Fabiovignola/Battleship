@@ -6,6 +6,7 @@ var showTable= "";
 var darksing= "";
 var idGamePlayer= "";
 
+
 gamesCalls();
 function gamesCalls() {
     fetch("/api/games", {
@@ -38,21 +39,29 @@ function listGame() {
         var list = document.createElement("li");
         var link = document.createElement("a");
         var join = document.createElement("a");
+        join.className = "join";
         console.log(allGa);
         var players = allGa[i].gamePlayers;
         for (var j = 0; j < players.length; j++){
             correo.push(players[j].player.email);
             var gp = players[j].id;
             if(data.player.id == players[j].player.id){
+                var t = data.player.email;
+                var t2 = players[j].player.email;
+                console.log(t);
+                console.log(t2);
                 link.setAttribute("href", "http://localhost:8080/web/game.html?gp=" + gp);
                 link.innerHTML = "→" + "ENTRY" + "←";
             }
         }
-        if(correo.length == 1){
-            join.setAttribute("data-game",allGa[i].id);
+        if(correo.length == 1) {
+            join.setAttribute("data-game", allGa[i].id);
             join.onclick = createGameplayer;
             // join.setAttribute("href", "http://localhost:8080/web/game.html?gp=" +);
             join.innerHTML = "→" + "JOIN" + "←";
+        }
+        if(correo.length == 1 && correo.includes(t)){
+            join.innerHTML = "";
         }
         list.innerHTML = allGa[i].date + " : " + correo.splice(0,2);
         list.appendChild(link);
@@ -201,8 +210,6 @@ function create() {
             console.log('Request failure: ', error);
         });
 }
-
-
 function createGameplayer() {
     console.log(event.target)
     gameid = event.target.getAttribute("data-game");
@@ -218,12 +225,33 @@ function createGameplayer() {
         .then(function (data) {
             return data.json();
         }).then(function (json) {
-        console.log(json)
-            window.location.href("http://localhost:8080/web/game.html?gp=" + gameid)
+        console.log(json.id)
+            window.location.href = "/web/game.html?gp=" + json.id;
+        createShip()
+            // location.reload()
+
 
     })
         .catch(function (error) {
             console.log('Request failure: ', error);
         });
+}
+function createShip(){
+    console.log(event.target)
+    gameid = event.target.getAttribute("data-game");
+    fetch("/api/games/"+gameid+"/ships", {
+       credentials: 'include',
+       headers: {
+           'Accept': 'application/json',
+           'Content-Type': 'application/json'
+       },
+       method: 'POST',
+          body: JSON.stringify([{shipType:"destr", location:["a1"]}])
+   })
+       .then(function (response) {
+           return response.json();            }).then(function (json) {      })
+       .catch(function (error) {
+           console.log('Request failure: ', error);
+       });
 }
 

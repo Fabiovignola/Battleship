@@ -27,6 +27,8 @@ public class SalvoController {
         private GamePlayerRepository gameprepo;
         @Autowired
         private PlayerRepository plaprepo;
+        @Autowired
+        private ShipRepository shiprepo;
 
         @RequestMapping("/games")
         public  Map<String, Object> getAllGame(Authentication authentication){
@@ -78,6 +80,9 @@ public class SalvoController {
                         if (game.getGamePlayers().size() == 2) {
                                 return new ResponseEntity<>(HttpStatus.FORBIDDEN);
                         }
+                }
+                if(game.getPlayers().contains(currentUser(authentication))){
+                        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
                 }
                 GamePlayer newGamePlayerDos = new GamePlayer(currentUser(authentication), game);
                 gameprepo.save(newGamePlayerDos);
@@ -227,5 +232,32 @@ public class SalvoController {
                 map.put(key,value);
                 return map;
         }
+
+        @RequestMapping(path="/games/players/{nn}/ships", method=RequestMethod.POST)
+        public ResponseEntity<Map<String, Object>> createShip(@PathVariable long nn, @RequestBody Set<Ship> listship ,Authentication authentication) {
+
+                GamePlayer gamep = gameprepo.findOne(nn);
+
+                if(authentication == null){
+                        return new ResponseEntity<Map<String, Object>>(makeNewUserMap("error", "PLEASE LOGIN"), HttpStatus.UNAUTHORIZED);
+                }
+                if(gamep == null){
+                        return new ResponseEntity<Map<String, Object>>(makeNewUserMap("error", "NO SUCH GAMEPLAYER"), HttpStatus.UNAUTHORIZED);
+                }
+
+                if(currentUser(authentication) != gamep.getPlayer()){
+                        return new ResponseEntity<Map<String, Object>>(makeNewUserMap("error", "NO SUCH"), HttpStatus.UNAUTHORIZED);
+                }
+                if(gamep.getShips().size() > 0){
+                        return new ResponseEntity<Map<String, Object>>(makeNewUserMap("error", "NO SHIP"), HttpStatus.FORBIDDEN);
+                }
+                for(Ship ship : listship) {
+//                addShip.set(addShip());
+//                        pet.setOwner(person);
+                        gamep.addShip(ship);
+                        shiprepo.save(ship);
+                }
+                return new ResponseEntity<Map<String, Object>>(makeNewUserMap("ship", "ship created"),HttpStatus.CREATED);
         }
 
+        }
