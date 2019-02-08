@@ -26,7 +26,23 @@ html{
 body{
     background-image: url("ocean.png");
 }
-
+#shipconten{
+    /*-webkit-transform: rotate(90deg);*/
+}
+#tablas{
+    display: flex;
+}
+#des{
+    border-radius: 10px;
+    /*-webkit-transform: rotate(90deg);*/
+    /*-moz-transform: rotate(90deg);*/
+}
+.barcos{
+    background-image: url("ss.jpg");
+}
+.clear {
+    background-image: none;
+}
 /*.gamesHtml{*/
     /*background-image: url("a.jpg");*/
     /*margin-left: 50px;*/
