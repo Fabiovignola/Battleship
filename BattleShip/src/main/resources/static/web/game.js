@@ -134,47 +134,68 @@ function makeUrl() {
     return '/api/game_view/' + gameplayerID;
 }
 function shipDestroyer() {
+    var aircraft = event.target;
+    aircraft.getAttribute("data-type");
+    currentShip = aircraft.getAttribute("data-type");
+    currentSize = aircraft.getAttribute("data-size");
+    console.log(aircraft.getAttribute("data-type"));
+    ///////
+    var battleship = event.target;
+    battleship.getAttribute("data-type");
+    currentShip = battleship.getAttribute("data-type");
+    currentSize = battleship.getAttribute("data-size");
+    console.log(battleship.getAttribute("data-type"));
+    /////
+    var submarine = event.target;
+    submarine.getAttribute("data-type");
+    currentShip = submarine.getAttribute("data-type");
+    currentSize = submarine.getAttribute("data-size");
+    console.log(submarine.getAttribute("data-type"));
+    ///////
     var destroyer = event.target;
     destroyer.getAttribute("data-type");
     currentShip = destroyer.getAttribute("data-type");
     currentSize = destroyer.getAttribute("data-size");
     console.log(destroyer.getAttribute("data-type"));
-
-
+    /////////////////
+    var patrolboat = event.target;
+    patrolboat.getAttribute("data-type");
+    currentShip = patrolboat.getAttribute("data-type");
+    currentSize = patrolboat.getAttribute("data-size");
+    console.log(patrolboat.getAttribute("data-type"));
 }
 function as() {
     var celda = event.target;
-    console.log(celda)
-    console.log(currentShip)
-    console.log(currentSize)
-    celda.classList.add("barcos");
     var idCelda = celda.getAttribute("id");
-    console.log(idCelda)
-
     var letter = idCelda[0];
     var number = idCelda[1];
-     number = Number(number);
-     console.log(number);
+    number = Number(number);
     currentSize = Number(currentSize);
-    console.log(currentSize);
-    for (var h = 0; h < currentSize -1 ; h++) {
-        number = number + 1;
-        console.log(number);
-        var idCelda = letter + number;
+    var allTd = document.getElementsByTagName("td");
 
-        console.log(idCelda);
-        var printShip = document.getElementById(idCelda);
-        // printShip.className.remove("barcos");
-
-        console.log(printShip);
-         var bar = printShip.className = ("barcos");
-
-        // var pp = printShip.style.backgroundImage = "url('ss.jpg')";
-        // printShip.style.backgroundImage = " ";
-
+    for (var i = 0; i < allTd.length ; i++) {
+        if (allTd[i].classList.contains(currentShip)) {
+            allTd[i].classList.remove(currentShip);
+        }
+        if(celda.className != ""){
+            console.log("tiene clase")
+        }
     }
-    if(bar != null){
-        printShip.className = ("clear");
-    }
+        if (idCelda.length > 1) {
+            for (var h = 0; h < currentSize - 1; h++) {
+                number = number + 1;
+                var idCelda = letter + number;
+                var printShip = document.getElementById(idCelda);
+                if( printShip.className == "") {
+                    celda.className = (currentShip);
+                    printShip.className = (currentShip);
+                }else{
+                    console.log("noooo")
+                    return;
+                }
+            }
+        }else
+            {
+        console.log("que nooo")}
 
 }

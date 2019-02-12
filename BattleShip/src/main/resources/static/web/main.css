@@ -37,14 +37,18 @@ body{
     /*-webkit-transform: rotate(90deg);*/
     /*-moz-transform: rotate(90deg);*/
 }
-.barcos{
+.aircraft{
     background-image: url("ss.jpg");
 }
-.clear {
-    background-image: none;
+.battleship{
+    background-image: url("bs.png");
 }
-/*.gamesHtml{*/
-    /*background-image: url("a.jpg");*/
-    /*margin-left: 50px;*/
-    /*margin-right: 50px;*/
-/*}*/
+.submarine{
+    background-image: url("sub.jpg");
+}
+.destroyer{
+    background-image: url("des.jpg");
+}
+.patrolboat{
+    background-image: url("pb.jpg");
+}
