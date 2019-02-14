@@ -259,8 +259,6 @@ function createShip(){
            console.log('Request failure: ', error);
        });
 }
-
-
 // shipDestroyer();
 
 

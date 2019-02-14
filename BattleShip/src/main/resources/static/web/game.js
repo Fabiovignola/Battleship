@@ -7,6 +7,8 @@ var allShips = [];
 var allSalvos = [];
 var currentShip = "";
 var currentSize = "";
+var dato;
+var ShipRotate = new Boolean(true);
 
 shipCalls();
 function shipCalls() {
@@ -17,10 +19,8 @@ function shipCalls() {
     }).then(function (response) {
         if (response.ok) {
             console.log(2);
-
             return response.json();
         }
-
     }).then(function (json) {
         data = json;
         console.log(data);
@@ -30,9 +30,6 @@ function shipCalls() {
         tableGameDos();
         printShips();
         printSalvos();
-
-
-
     }).catch(function (error) {
         console.log("Request failed:" + error.message);
     });
@@ -54,8 +51,9 @@ function tableGameOne(){
                     celda.innerHTML = letras[j];
                 }
                 celda.setAttribute("id", (letras[j] + numeros[i]));
-                celda.onclick = rotate;
-                // celda.setAttribute("class", (letras[j] + numeros[i]));
+                // celda.onclick = rotate;    LLAMAR A LA FUNCION....
+                // celda.onclick = hori;
+                celda.onclick = ShipImplement;
                 hilera.appendChild(celda);
             }
             tblBody.appendChild(hilera);
@@ -133,6 +131,22 @@ function makeUrl() {
     gameplayerID = getParameterByName("gp");
     return '/api/game_view/' + gameplayerID;
 }
+function ShipImplement() {
+        console.log(dato);
+    if(dato == "true"){
+        console.log("horizontal")
+        hori()
+    }
+    if(dato == "false"){
+        console.log("vertical")
+        verti()
+    }
+}
+function checkHorizontal() {
+    var x = event.target;
+    dato = x.getAttribute("value");
+
+}
 function shipDestroyer() {
     var aircraft = event.target;
     aircraft.getAttribute("data-type");
@@ -164,7 +178,7 @@ function shipDestroyer() {
     currentSize = patrolboat.getAttribute("data-size");
     console.log(patrolboat.getAttribute("data-type"));
 }
-function as() {
+function hori() {
     var celda = event.target;
     console.log(celda)
     var idCelda = celda.getAttribute("id");
@@ -216,8 +230,7 @@ function as() {
                     }
                 }
 }
-
-function rotate() {
+function verti() {
     var celda = event.target;
     console.log(celda)
     var idCelda = celda.getAttribute("id");
@@ -276,4 +289,6 @@ function rotate() {
             printShipNew.className = (currentShip);
         }
     }
+
 }
+
