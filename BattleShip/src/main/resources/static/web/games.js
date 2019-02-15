@@ -134,7 +134,6 @@ function signIn(event){
         .catch(function (error) {
             console.log('Request failure: ', error);
         });
-
 }
 function logIn(event){
     event.preventDefault()
@@ -215,7 +214,6 @@ function createGameplayer() {
     console.log(event.target)
     gameid = event.target.getAttribute("data-game");
     // event.preventDefault()
-
     fetch("/api/game/"+gameid+"/players", {
         credentials: 'include',
         headers: {
@@ -228,10 +226,7 @@ function createGameplayer() {
         }).then(function (json) {
         console.log(json.id)
             window.location.href = "/web/game.html?gp=" + json.id;
-
             // location.reload()
-
-
     })
         .catch(function (error) {
             console.log('Request failure: ', error);

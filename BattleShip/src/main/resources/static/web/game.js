@@ -145,7 +145,6 @@ function ShipImplement() {
 function checkHorizontal() {
     var x = event.target;
     dato = x.getAttribute("value");
-
 }
 function shipDestroyer() {
     var aircraft = event.target;
@@ -290,5 +289,32 @@ function verti() {
         }
     }
 
+}
+shipCreate()
+function shipCreate() {
+    console.log(event.target)
+    gameid = event.target.getAttribute("data-game");
+    fetch("/api/games/"+gameid+"/ships", {
+        credentials: 'include',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify([{shipType:"currentShip", location:["celda" + "idCelda"]},
+                              {shipType:"currentShip", location:["celda" + "idCelda"]},
+                              {shipType:"currentShip", location:["celda" + "idCelda"]},
+                              {shipType:"currentShip", location:["celda" + "idCelda"]},
+                              {shipType:"currentShip", location:["celda" + "idCelda"]}])
+    })
+        .then(function (response) {
+            return response.json();            })
+        .then(function (json) {
+            console.log(json.id)
+            window.location.href = "/web/game.html?gp=" + json.id;
+        })
+        .catch(function (error) {
+            console.log('Request failure: ', error);
+        });
 }
 
