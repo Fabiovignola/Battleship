@@ -8,7 +8,8 @@ var allSalvos = [];
 var currentShip = "";
 var currentSize = "";
 var dato;
-var ShipRotate = new Boolean(true);
+var shipss = {shipType: "", location: ""};
+var firstShip = [];
 
 shipCalls();
 function shipCalls() {
@@ -26,6 +27,8 @@ function shipCalls() {
         console.log(data);
         allShips = data.Ships;
         allSalvos = data.Salvos;
+        gamePl = data.Game.gamePlayers[0].id;
+        console.log(gamePl);
         tableGameOne();
         tableGameDos();
         printShips();
@@ -228,6 +231,7 @@ function hori() {
                         printShipNew.className = (currentShip);
                     }
                 }
+    shipPush();
 }
 function verti() {
     var celda = event.target;
@@ -290,31 +294,42 @@ function verti() {
     }
 
 }
-shipCreate()
-function shipCreate() {
-    console.log(event.target)
-    gameid = event.target.getAttribute("data-game");
-    fetch("/api/games/"+gameid+"/ships", {
-        credentials: 'include',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify([{shipType:"currentShip", location:["celda" + "idCelda"]},
-                              {shipType:"currentShip", location:["celda" + "idCelda"]},
-                              {shipType:"currentShip", location:["celda" + "idCelda"]},
-                              {shipType:"currentShip", location:["celda" + "idCelda"]},
-                              {shipType:"currentShip", location:["celda" + "idCelda"]}])
-    })
-        .then(function (response) {
-            return response.json();            })
-        .then(function (json) {
-            console.log(json.id)
-            window.location.href = "/web/game.html?gp=" + json.id;
-        })
-        .catch(function (error) {
-            console.log('Request failure: ', error);
-        });
+
+// function shipCreate() {
+//     fetch("/api/games/players/"+gamePl+"/ships", {
+//         credentials: 'include',
+//         headers: {
+//             'Accept': 'application/json',
+//             'Content-Type': 'application/json'
+//         },
+//         method: 'POST',
+//         body: JSON.stringify([{shipType:"firstShip", location:["A1"]},
+//                               {shipType:"currentShip", location:["A2"]},
+//                               {shipType:"currentShip", location:["A3"]},
+//                               {shipType:"currentShip", location:["A4"]},
+//                               {shipType:"currentShip", location:["A5"]}])
+//     })
+//         .then(function (response) {
+//             return response.json();            })
+//         .then(function (json) {
+//             console.log(json.id)
+//
+//         })
+//         .catch(function (error) {
+//             console.log('Request failure: ', error);
+//         });
+// }
+
+function shipPush() {
+    var tds = document.getElementsByTagName("td");
+    var ship = {};
+    for (var h = 0; h < tds.length; h++){
+        if(tds[h].className == "destroyer"){
+            firstShip.push(tds[h].getAttribute("id"));
+            shipss.shipType.push("destroyer");
+            // shipss.location.push(firstShip);
+            console.log(shipss);
+        }
+    }
 }
 

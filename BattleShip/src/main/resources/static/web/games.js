@@ -6,7 +6,6 @@ var showTable= "";
 var darksing= "";
 var idGamePlayer= "";
 
-
 gamesCalls();
 
 function gamesCalls() {
