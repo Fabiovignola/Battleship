@@ -8,8 +8,18 @@ var allSalvos = [];
 var currentShip = "";
 var currentSize = "";
 var dato;
-var shipss = {shipType: "", location: ""};
-var firstShip = [];
+var allS = [];
+var shipObject = {shipType: "", location: ""};
+var shipObjectTwo = {shipType: "", location: ""};
+var shipObjectThree = {shipType: "", location: ""};
+var shipObjectFour = {shipType: "", location: ""};
+var shipObjectFive = {shipType: "", location: ""};
+
+var LocationId = [];
+var LocationIdTwo = [];
+var LocationIdThree = [];
+var LocationIdFour = [];
+var LocationIdFive = [];
 
 shipCalls();
 function shipCalls() {
@@ -231,7 +241,7 @@ function hori() {
                         printShipNew.className = (currentShip);
                     }
                 }
-    shipPush();
+    shipPush()
 }
 function verti() {
     var celda = event.target;
@@ -292,44 +302,82 @@ function verti() {
             printShipNew.className = (currentShip);
         }
     }
-
+    shipPush()
 }
+function shipCreate() {
+    fetch("/api/games/players/"+gamePl+"/ships", {
+        credentials: 'include',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify([{shipType:"aircraft", location: LocationId},
+                              {shipType:"destroyer", location: LocationIdTwo},
+                              {shipType:"battleship", location: LocationIdThree},
+                              {shipType:"submarine", location: LocationIdFour},
+                              {shipType:"patrolboat", location: LocationIdFive}])
+    })
+        .then(function (response) {
+            return response.json();            })
+        .then(function (json) {
+            console.log(json)
+            location.reload()
 
-// function shipCreate() {
-//     fetch("/api/games/players/"+gamePl+"/ships", {
-//         credentials: 'include',
-//         headers: {
-//             'Accept': 'application/json',
-//             'Content-Type': 'application/json'
-//         },
-//         method: 'POST',
-//         body: JSON.stringify([{shipType:"firstShip", location:["A1"]},
-//                               {shipType:"currentShip", location:["A2"]},
-//                               {shipType:"currentShip", location:["A3"]},
-//                               {shipType:"currentShip", location:["A4"]},
-//                               {shipType:"currentShip", location:["A5"]}])
-//     })
-//         .then(function (response) {
-//             return response.json();            })
-//         .then(function (json) {
-//             console.log(json.id)
-//
-//         })
-//         .catch(function (error) {
-//             console.log('Request failure: ', error);
-//         });
-// }
-
+        })
+        .catch(function (error) {
+            console.log('Request failure: ', error);
+        });
+}
 function shipPush() {
     var tds = document.getElementsByTagName("td");
-    var ship = {};
+    var hola = [];
+    LocationId = [];
+    LocationIdTwo = [];
+    LocationIdThree = [];
+    LocationIdFour = [];
+    LocationIdFive = [];
+
     for (var h = 0; h < tds.length; h++){
+        if(tds[h].className == "aircraft"){
+            LocationId.push(tds[h].getAttribute("id"));
+            shipObject.shipType = "aircraft";
+            shipObject.location = LocationId;
+        }
         if(tds[h].className == "destroyer"){
-            firstShip.push(tds[h].getAttribute("id"));
-            shipss.shipType.push("destroyer");
-            // shipss.location.push(firstShip);
-            console.log(shipss);
+            LocationIdTwo.push(tds[h].getAttribute("id"));
+            shipObjectTwo.shipType = "destroyer";
+            shipObjectTwo.location = LocationIdTwo;
+        }
+        if(tds[h].className == "battleship"){
+            LocationIdThree.push(tds[h].getAttribute("id"));
+            shipObjectThree.shipType = "battleship";
+            shipObjectThree.location = LocationIdThree;
+        }
+        if(tds[h].className == "submarine"){
+            LocationIdFour.push(tds[h].getAttribute("id"));
+            shipObjectFour.shipType = "submarine";
+            shipObjectFour.location = LocationIdFour;
+        }
+        if(tds[h].className == "patrolboat"){
+            LocationIdFive.push(tds[h].getAttribute("id"));
+            shipObjectFive.shipType = "patrolboat";
+            shipObjectFive.location = LocationIdFive;
         }
     }
+    hola.push(shipObject);
+    hola.push(shipObjectTwo);
+    hola.push(shipObjectThree);
+    hola.push(shipObjectFour);
+    hola.push(shipObjectFive);
+    allS = hola;
+
+    console.log(allS);
+    // console.log(shipObject);
+    // console.log(shipObjectTwo);
+    // console.log(LocationId);
+    // console.log(LocationIdTwo);
+
+
 }
 
