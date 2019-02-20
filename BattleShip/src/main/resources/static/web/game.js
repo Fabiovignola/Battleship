@@ -21,6 +21,8 @@ var LocationIdThree = [];
 var LocationIdFour = [];
 var LocationIdFive = [];
 
+var locationSalvo = [];
+
 shipCalls();
 function shipCalls() {
     fetch(makeUrl(), {
@@ -100,6 +102,7 @@ function tableGameDos(){
     tabla.appendChild(tblBody);
     contenido.appendChild(tabla);
     tabla.setAttribute("border", "2");
+
 }
 function printShips(){
             for (var h = 0; h < allShips.length; h++) {
@@ -380,4 +383,28 @@ function shipPush() {
 
 
 }
+function salvosFetch() {
+    fetch("/api/games/players/"+gamePl+"/salvos", {
+        credentials: 'include',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({turn: 1, location: locationSalvo})
+    })
+        .then(function (response) {
+            return response.json();            })
+        .then(function (json) {      })
+        .catch(function (error) {
+            console.log('Request failure: ', error);
+        });
+}
+
+function salvosTurn() {
+    var x = event.target;
+    locationSalvo = x.getAttribute("id");
+
+}
+
 

@@ -27,6 +27,8 @@ public class SalvoController {
         private PlayerRepository plaprepo;
         @Autowired
         private ShipRepository shiprepo;
+        @Autowired
+        private SalvoRepository salvoprepo;
 
         @RequestMapping("/games")
         public  Map<String, Object> getAllGame(Authentication authentication){
@@ -257,4 +259,24 @@ public class SalvoController {
                 return new ResponseEntity<Map<String, Object>>(makeNewUserMap("ship", "ship created"),HttpStatus.CREATED);
         }
 
+        @RequestMapping(path="/games/players/{nn}/salvos", method=RequestMethod.POST)
+        public ResponseEntity<Map<String, Object>> createSalvo(@PathVariable long nn, @RequestBody Salvo salvo ,Authentication authentication) {
+
+                GamePlayer gamep = gameprepo.findOne(nn);
+
+                if(authentication == null){
+                        return new ResponseEntity<Map<String, Object>>(makeNewUserMap("error", "PLEASE LOGIN"), HttpStatus.UNAUTHORIZED);
+                }
+                if(gamep == null){
+                        return new ResponseEntity<Map<String, Object>>(makeNewUserMap("error", "NO SUCH GAMEPLAYER"), HttpStatus.UNAUTHORIZED);
+                }
+
+                if(currentUser(authentication) != gamep.getPlayer()){
+                        return new ResponseEntity<Map<String, Object>>(makeNewUserMap("error", "NO SUCH"), HttpStatus.UNAUTHORIZED);
+                }
+                        gamep.addSalvo(salvo);
+                        salvoprepo.save(salvo);
+                return new ResponseEntity<Map<String, Object>>(makeNewUserMap("salvo", "SALVO CREATE"),HttpStatus.CREATED);
         }
+        }
+
