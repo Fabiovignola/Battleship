@@ -417,15 +417,9 @@ function salvosTurn() {
     if(locationSalvo.includes(idPure)){
         return;
     }
-    if(idPure.length == 1) {
-        // placeShip = false;
+    if(idPure.length == 0 || idPure == 10 || idPure.length == 1) {
         return;
     }
-    if(idPure.length == 0 || idPure == 10) {
-        // placeShip = false;
-        return;
-    }
-
     locationSalvo.push(idPure);
     console.log(x)
     console.log(idPure)
