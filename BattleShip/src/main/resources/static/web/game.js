@@ -95,6 +95,7 @@ function tableGameDos(){
             }
             celda.setAttribute("id", (0 + letras[j] + numeros[i]));
             // celda.setAttribute("class", (letras[j] + numeros[i]));
+            celda.onclick = salvosTurn;
             hilera.appendChild(celda);
         }
         tblBody.appendChild(hilera);
@@ -391,19 +392,45 @@ function salvosFetch() {
             'Content-Type': 'application/json'
         },
         method: 'POST',
-        body: JSON.stringify({turn: 1, location: locationSalvo})
+        body: JSON.stringify({salvo: 1, location: locationSalvo})
     })
         .then(function (response) {
             return response.json();            })
-        .then(function (json) {      })
+        .then(function (json) {
+            location.reload()
+        })
         .catch(function (error) {
             console.log('Request failure: ', error);
         });
 }
-
 function salvosTurn() {
     var x = event.target;
-    locationSalvo = x.getAttribute("id");
+    var turno;
+    var placeShip = new Boolean(true);
+    for (var h = 0; h < 5; h++){
+        turno = x.getAttribute("id");
+        idPure = turno.substring(1);
+    }
+    if(locationSalvo.length > 4){
+        return;
+    }
+    if(locationSalvo.includes(idPure)){
+        return;
+    }
+    if(idPure.length == 1) {
+        // placeShip = false;
+        return;
+    }
+    if(idPure.length == 0 || idPure == 10) {
+        // placeShip = false;
+        return;
+    }
+
+    locationSalvo.push(idPure);
+    console.log(x)
+    console.log(idPure)
+    console.log(locationSalvo)
+
 
 }
 

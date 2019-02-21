@@ -193,16 +193,6 @@ public class SalvoController {
                  DTO.put("tied", totaltied);
                  System.out.println(DTO);
                  return DTO;
-
-                 ///////////////////////
-
-
-
-
-
-
-
-
         }
 
         public Player currentUser(Authentication authentication) {
@@ -274,8 +264,13 @@ public class SalvoController {
                 if(currentUser(authentication) != gamep.getPlayer()){
                         return new ResponseEntity<Map<String, Object>>(makeNewUserMap("error", "NO SUCH"), HttpStatus.UNAUTHORIZED);
                 }
+                Set<Salvo> salvos = gamep.getSalvos();
+                System.out.println(salvos.size());
+                Integer turn = salvos.size() + 1;
+                        salvo.setTurn(turn);
                         gamep.addSalvo(salvo);
                         salvoprepo.save(salvo);
+                System.out.println("despues de guardar " + salvos.size());
                 return new ResponseEntity<Map<String, Object>>(makeNewUserMap("salvo", "SALVO CREATE"),HttpStatus.CREATED);
         }
         }
