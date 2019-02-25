@@ -23,6 +23,8 @@ var LocationIdFive = [];
 
 var locationSalvo = [];
 
+
+
 shipCalls();
 function shipCalls() {
     fetch(makeUrl(), {
@@ -31,7 +33,7 @@ function shipCalls() {
         }
     }).then(function (response) {
         if (response.ok) {
-            console.log(2);
+            // console.log(2);
             return response.json();
         }
     }).then(function (json) {
@@ -45,6 +47,8 @@ function shipCalls() {
         tableGameDos();
         printShips();
         printSalvos();
+        // alert("Aquì la tenès que llamar, marica")
+        shipList();
     }).catch(function (error) {
         console.log("Request failed:" + error.message);
     });
@@ -327,12 +331,31 @@ function shipCreate() {
         .then(function (json) {
             console.log(json)
             location.reload()
-
+            shipList()
         })
         .catch(function (error) {
             console.log('Request failure: ', error);
         });
+
 }
+
+function shipList() {
+    // console.log("hola");
+    // var tds = document.getElementsByTagName("td");
+    // var div = document.getElementById("lista");
+    // var ol = document.createElement("ol");
+    //
+    // for (var f = 0; f < tds.length; f++) {
+    //     if (tds[f].className == "aircraft"){
+    //         var liCreate = document.createElement("li");
+    //         liCreate.innerHTML = "aircraft";
+    //         ol.appendChild(liCreate);
+    //         div.appendChild(ol);
+    //     }
+    // }
+
+}
+
 function shipPush() {
     var tds = document.getElementsByTagName("td");
     var hola = [];
@@ -342,33 +365,34 @@ function shipPush() {
     LocationIdFour = [];
     LocationIdFive = [];
 
-    for (var h = 0; h < tds.length; h++){
-        if(tds[h].className == "aircraft"){
+    for (var h = 0; h < tds.length; h++) {
+        if (tds[h].className == "aircraft") {
             LocationId.push(tds[h].getAttribute("id"));
             shipObject.shipType = "aircraft";
             shipObject.location = LocationId;
         }
-        if(tds[h].className == "destroyer"){
+        if (tds[h].className == "destroyer") {
             LocationIdTwo.push(tds[h].getAttribute("id"));
             shipObjectTwo.shipType = "destroyer";
             shipObjectTwo.location = LocationIdTwo;
         }
-        if(tds[h].className == "battleship"){
+        if (tds[h].className == "battleship") {
             LocationIdThree.push(tds[h].getAttribute("id"));
             shipObjectThree.shipType = "battleship";
             shipObjectThree.location = LocationIdThree;
         }
-        if(tds[h].className == "submarine"){
+        if (tds[h].className == "submarine") {
             LocationIdFour.push(tds[h].getAttribute("id"));
             shipObjectFour.shipType = "submarine";
             shipObjectFour.location = LocationIdFour;
         }
-        if(tds[h].className == "patrolboat"){
+        if (tds[h].className == "patrolboat") {
             LocationIdFive.push(tds[h].getAttribute("id"));
             shipObjectFive.shipType = "patrolboat";
             shipObjectFive.location = LocationIdFive;
         }
     }
+
     hola.push(shipObject);
     hola.push(shipObjectTwo);
     hola.push(shipObjectThree);
@@ -381,8 +405,6 @@ function shipPush() {
     // console.log(shipObjectTwo);
     // console.log(LocationId);
     // console.log(LocationIdTwo);
-
-
 }
 function salvosFetch() {
     fetch("/api/games/players/"+gamePl+"/salvos", {
@@ -397,7 +419,11 @@ function salvosFetch() {
         .then(function (response) {
             return response.json();            })
         .then(function (json) {
+
             location.reload()
+
+
+
         })
         .catch(function (error) {
             console.log('Request failure: ', error);
@@ -424,8 +450,6 @@ function salvosTurn() {
     console.log(x)
     console.log(idPure)
     console.log(locationSalvo)
-
-
 }
 
 
