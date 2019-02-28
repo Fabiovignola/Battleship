@@ -14,16 +14,13 @@ var shipObjectTwo = {shipType: "", location: ""};
 var shipObjectThree = {shipType: "", location: ""};
 var shipObjectFour = {shipType: "", location: ""};
 var shipObjectFive = {shipType: "", location: ""};
-
 var LocationId = [];
 var LocationIdTwo = [];
 var LocationIdThree = [];
 var LocationIdFour = [];
 var LocationIdFive = [];
-
 var locationSalvo = [];
-
-
+var salvoss;
 
 shipCalls();
 function shipCalls() {
@@ -41,6 +38,7 @@ function shipCalls() {
         console.log(data);
         allShips = data.Ships;
         allSalvos = data.Salvos;
+        salvoss = data.Salvos[0].Salvos;
         gamePl = data.Game.gamePlayers[0].id;
         console.log(gamePl);
         tableGameOne();
@@ -48,7 +46,8 @@ function shipCalls() {
         printShips();
         printSalvos();
         // alert("Aquì la tenès que llamar, marica")
-        shipList();
+        // shipList();
+        opportunity();
     }).catch(function (error) {
         console.log("Request failed:" + error.message);
     });
@@ -338,24 +337,73 @@ function shipCreate() {
         });
 
 }
-
 function shipList() {
-    // console.log("hola");
-    // var tds = document.getElementsByTagName("td");
-    // var div = document.getElementById("lista");
-    // var ol = document.createElement("ol");
-    //
-    // for (var f = 0; f < tds.length; f++) {
-    //     if (tds[f].className == "aircraft"){
-    //         var liCreate = document.createElement("li");
-    //         liCreate.innerHTML = "aircraft";
-    //         ol.appendChild(liCreate);
-    //         div.appendChild(ol);
-    //     }
-    // }
+//
+//     // var theButton = document.getElementById('play');
+//     // var tds = document.getElementsByTagName("td");
+//     // console.log(allS);
+    var shipOne = allShips[0].location;
+    var shipTwo = allShips[1].location;
+    var shipThree = allShips[2].location;
+    var shipFour = allShips[3].location;
+    var shipFive = allShips[4].location;
+    var nameOne = allShips[0].type;
+    var nameTwo = allShips[1].type;
+    var nameThree = allShips[2].type;
+    var nameFour = allShips[3].type;
+    var nameFive = allShips[4].type;
 
+        var div = document.getElementById("lista");
+        var ol = document.createElement("ol");
+
+            if (shipOne == "") {
+                console.log("falta el barco")
+                alert("FALTAN BARCOS TRAMPOSO");
+            }else{
+                var li = document.createElement("li");
+                ol.appendChild(li);
+                div.appendChild(ol);
+                li.innerHTML = nameOne;
+            }
+            if (shipTwo == "") {
+                console.log("falta el barco")
+                alert("FALTAN BARCOS TRAMPOSO");
+            }else{
+                var li = document.createElement("li");
+                ol.appendChild(li);
+                div.appendChild(ol);
+                li.innerHTML = nameTwo;
+            }
+            if (shipThree == "") {
+                console.log("falta el barco")
+                alert("FALTAN BARCOS TRAMPOSO");
+            }else{
+                var li = document.createElement("li");
+                ol.appendChild(li);
+                div.appendChild(ol);
+                li.innerHTML = nameThree;
+            }
+            if (shipFour == "") {
+                console.log("falta el barco")
+                alert("FALTAN BARCOS TRAMPOSO");
+            }else{
+                var li = document.createElement("li");
+                ol.appendChild(li);
+                div.appendChild(ol);
+                li.innerHTML = nameFour;
+            }
+            if (shipFive == "") {
+                console.log("falta el barco")
+                alert("FALTAN BARCOS TRAMPOSO");
+            }else{
+                var li = document.createElement("li");
+                ol.appendChild(li);
+                div.appendChild(ol);
+                li.innerHTML = nameFive;
+            }
+
+    // console.log(data);
 }
-
 function shipPush() {
     var tds = document.getElementsByTagName("td");
     var hola = [];
@@ -401,6 +449,46 @@ function shipPush() {
     allS = hola;
 
     console.log(allS);
+    var div = document.getElementById("lista");
+    var ol = document.createElement("ol");
+    if (allS[0].shipType == "") {
+        console.log("falta el barco")
+    }else{
+        var li = document.createElement("li");
+        li.innerHTML = allS[0].shipType;
+    }
+    if (allS[1].shipType == "") {
+        console.log("falta el barco")
+    }else{
+        var liTwo = document.createElement("li");
+        liTwo.innerHTML = allS[1].shipType;
+    }
+    if (allS[2].shipType == "") {
+        console.log("falta el barco")
+    }else{
+        var liThree = document.createElement("li");
+        liThree.innerHTML = allS[2].shipType;
+    }
+    if (allS[3].shipType == "") {
+        console.log("falta el barco")
+    }else{
+        var liFour = document.createElement("li");
+        liFour.innerHTML = allS[3].shipType;
+    }
+    if (allS[4].shipType == "") {
+        console.log("falta el barco")
+    }else{
+        var liFive = document.createElement("li");
+        liFive.innerHTML = allS[4].shipType;
+    }
+    ol.appendChild(li);
+    ol.appendChild(liTwo);
+    ol.appendChild(liThree);
+    ol.appendChild(liFour);
+    ol.appendChild(liFive);
+    div.appendChild(ol);
+    // var thisButton = document.getElementById("play");
+    document.getElementById("play").style.display = "block";
     // console.log(shipObject);
     // console.log(shipObjectTwo);
     // console.log(LocationId);
@@ -419,11 +507,7 @@ function salvosFetch() {
         .then(function (response) {
             return response.json();            })
         .then(function (json) {
-
             location.reload()
-
-
-
         })
         .catch(function (error) {
             console.log('Request failure: ', error);
@@ -450,6 +534,30 @@ function salvosTurn() {
     console.log(x)
     console.log(idPure)
     console.log(locationSalvo)
+    if(locationSalvo.length == 5){
+        document.getElementById("turn").style.display = "block";
+    }
 }
+function opportunity() {
+    var div = document.getElementById("lista");
+    var ol = document.createElement("ol");
+    // var salvoss = allSalvos.Salvos;
+
+    console.log(salvoss);
+    for (var h = 0; h < salvoss.length; h++){
+        var salvosTable = salvoss[h].turn;
+        var li = document.createElement("li");
+        li.innerHTML = "TURNO REALIZADO" + "" + ":" + "" + salvosTable;
+    }
+    // for (var t = 0; t < allShips.length; t++){
+    //     var shipTyp = allShips[t].type;
+    //     var liTwo = document.createElement("li");
+    //     liTwo.innerHTML = shipTyp;
+    // }
+    ol.appendChild(li);
+    // ol.appendChild(liTwo);
+    div.appendChild(ol);
+}
+
 
 

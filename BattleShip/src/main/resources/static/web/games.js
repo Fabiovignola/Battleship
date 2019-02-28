@@ -4,10 +4,8 @@ var usernamebutton= "";
 var passwordbutton= "";
 var showTable= "";
 var darksing= "";
-var idGamePlayer= "";
 
 gamesCalls();
-
 function gamesCalls() {
     fetch("/api/games", {
         method: "GET",
@@ -231,28 +229,5 @@ function createGameplayer() {
             console.log('Request failure: ', error);
         });
 }
-// createShip();
-function createShip(){
-    console.log(event.target)
-    gameid = event.target.getAttribute("data-game");
-    fetch("/api/games/"+gameid+"/ships", {
-       credentials: 'include',
-       headers: {
-           'Accept': 'application/json',
-           'Content-Type': 'application/json'
-       },
-       method: 'POST',
-          body: JSON.stringify([{shipType:"destroyer", location:["A1","A2","A3","A4","A5"]}])
-   })
-       .then(function (response) {
-           return response.json();            })
-        .then(function (json) {
-
-        })
-       .catch(function (error) {
-           console.log('Request failure: ', error);
-       });
-}
-// shipDestroyer();
 
 

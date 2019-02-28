@@ -52,3 +52,9 @@ body{
 .patrolboat{
     background-image: url("pb.jpg");
 }
+#play {
+    display: none;
+}
+#turn {
+    display: none;
+}
