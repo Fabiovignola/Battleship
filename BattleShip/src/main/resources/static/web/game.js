@@ -48,6 +48,7 @@ function shipCalls() {
         // alert("Aquì la tenès que llamar, marica")
         // shipList();
         opportunity();
+        lose();
     }).catch(function (error) {
         console.log("Request failed:" + error.message);
     });
@@ -79,6 +80,7 @@ function tableGameOne(){
         tabla.appendChild(tblBody);
         contenido.appendChild(tabla);
         tabla.setAttribute("border", "2");
+
         }
 function tableGameDos(){
     var contenido = document.getElementById("conteTwo");
@@ -537,6 +539,7 @@ function salvosTurn() {
     if(locationSalvo.length == 5){
         document.getElementById("turn").style.display = "block";
     }
+
 }
 function opportunity() {
     var div = document.getElementById("lista");
@@ -558,6 +561,18 @@ function opportunity() {
     // ol.appendChild(liTwo);
     div.appendChild(ol);
 }
+function lose() {
+    var tab = document.getElementById("conte");
+    var allTds = document.getElementsByTagName("td");
+    var clasesTd = 0;
 
+    for (var g = 0; g < allTds.length; g++){
 
-
+        if(allTds[g].className == "hit"){
+            clasesTd = clasesTd +1;
+        }
+    }
+    if(clasesTd == 17){
+        alert("YOU LOSE");
+    }
+}
