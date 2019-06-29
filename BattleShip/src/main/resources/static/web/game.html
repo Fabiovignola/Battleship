@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="main.css">
     <title>BATTLESHIP!</title>
 </head>
@@ -12,10 +16,10 @@
     <img id="sub"src="sub.jpg"  height="50" width="100" data-type="submarine" data-size="3" onclick="shipDestroyer()">
     <img id="des"src="des.jpg"  height="50" width="100" data-type="destroyer" data-size="3" onclick="shipDestroyer()">
     <img id="pb"src="pb.jpg"  height="50" width="100" data-type="patrolboat" data-size="2" onclick="shipDestroyer()">
-    <button id="hori" value="true" onclick="checkHorizontal()"> Horizontal </button>
-    <button id="verti" value="false" onclick="checkHorizontal()"> Vertical </button>
-    <button id="play" value="true" onclick="shipCreate()"> PLAY </button>
-    <button id="turn" value="true" onclick="salvosFetch()" onclick="lose()"> NEXT TURN </button>
+    <button id="hori" class="btn btn-primary" value="true" onclick="checkHorizontal()"> Horizontal </button>
+    <button id="verti" class="btn btn-secondary" value="false" onclick="checkHorizontal()"> Vertical </button>
+    <button id="play" class="btn btn-primary" value="true" onclick="shipCreate()"> PLAY </button>
+    <button id="turn" class="btn btn-secondary" value="true" onclick="salvosFetch()" onclick="lose()"> NEXT TURN </button>
 </div>
 <div id="tablas">
 <div id="conte"></div>
